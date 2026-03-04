@@ -1,0 +1,22 @@
+[project]
+name = "vec-kg-rag"
+version = "0.1.0"
+description = "LightRAG-style prototype for markdown vectorization, knowledge graph construction, and RAG"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.26.0,<2.0.0",
+  "openai>=1.52.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0",
+]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["vec_kg_rag"]

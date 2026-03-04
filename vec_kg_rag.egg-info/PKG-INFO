@@ -1,0 +1,101 @@
+Metadata-Version: 2.4
+Name: vec-kg-rag
+Version: 0.1.0
+Summary: LightRAG-style prototype for markdown vectorization, knowledge graph construction, and RAG
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: numpy<2.0.0,>=1.26.0
+Requires-Dist: openai>=1.52.0
+Provides-Extra: dev
+Requires-Dist: pytest>=8.0.0; extra == "dev"
+
+# Vec KG RAG Prototype
+
+基于 LightRAG 思路的可运行原型：
+- 输入：`data/raw/**/*.md`
+- 预处理输出：`data/processed/*.jsonl`
+- 图谱输出：`artifacts/kg_nodes.jsonl`、`artifacts/kg_edges.jsonl`
+- 查询日志：`artifacts/query_logs.jsonl`
+- 命令：`ingest` / `build-index` / `query` / `eval`
+
+## 1. 环境准备
+
+```bash
+cd /Users/xcy/Program/Vec
+python -m venv .venv
+source .venv/bin/activate
+pip install -e .
+```
+
+如果使用云端模型（推荐）：
+
+```bash
+export OPENAI_API_KEY="your_key"
+# 可选
+export OPENAI_BASE_URL="https://api.openai.com/v1"
+```
+
+默认模型：
+- `gpt-4o-mini`
+- `text-embedding-3-large`
+
+## 2. 运行流程
+
+### Step 1: 解析 MD
+
+```bash
+python cli.py ingest --input data/raw --workspace .lightrag
+```
+
+### Step 2: 构建索引（向量 + 图）
+
+```bash
+python cli.py build-index --workspace .lightrag
+```
+
+### Step 3: 问答查询（带引用）
+
+```bash
+python cli.py query --workspace .lightrag --q "学院有哪些实验室与研究平台？"
+```
+
+### Step 4: 评测
+
+```bash
+python cli.py eval --workspace .lightrag --set eval/questions.jsonl
+```
+
+## 3. 输出说明
+
+- `data/processed/chunks.jsonl`：分块后的原始 chunk。
+- `data/processed/chunks_enriched.jsonl`：带 `node_ids` 的 chunk。
+- `artifacts/kg_nodes.jsonl`：节点。
+- `artifacts/kg_edges.jsonl`：主图边（`confidence >= threshold`）。
+- `artifacts/kg_edges_candidates.jsonl`：候选边（低置信度）。
+- `artifacts/query_logs.jsonl`：构建和查询日志（含 token usage）。
+- `.lightrag/embeddings.npy`、`.lightrag/chunk_meta.jsonl`：向量索引。
+- `.lightrag/graph_index.json`：图索引。
+- `artifacts/eval_report.json`：评测结果。
+
+## 4. 数据契约
+
+- `Node`: `id,type,name,aliases,summary,source_file,section_path`
+- `Edge`: `src_id,dst_id,rel_type,evidence,confidence,source_file,section_path`
+- `Chunk`: `chunk_id,text,source_file,section_path,tokens,node_ids`
+- `Answer`: `answer,citations[],retrieved_nodes[],retrieved_chunks[]`
+
+## 5. 固定本体
+
+实体类型：
+- `College, Department, Program, Faculty, Lab, Media, Resource, Alumni, IndustryPartner, Internship, CareerPath`
+
+关系类型：
+- `HAS_DEPARTMENT, HAS_PROGRAM, HAS_FACULTY, HAS_LAB, HAS_RESOURCE, HAS_MEDIA, COOPERATES_WITH, OFFERS_INTERNSHIP, LEADS_TO_CAREER, BELONGS_TO, ADVISED_BY`
+
+自由关系：
+- 仅允许 `OTHER_*`
+
+## 6. 说明
+
+- 若未配置 `OPENAI_API_KEY`，系统会自动使用离线启发式模式（便于本地调试）。
+- 若需迁移到 Neo4j，可在后续版本替换 `graph_store` 实现，保持 CLI 与数据契约不变。

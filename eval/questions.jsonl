@@ -1,0 +1,3 @@
+{"id":"q1","question":"学院有哪些实验室与研究平台？","gold_keywords":["实验室","研究中心","平台"],"expected_answer_contains":["实验室"]}
+{"id":"q2","question":"张三教授属于哪个系所，研究方向是什么？","gold_keywords":["张三教授","研究方向","系"],"expected_answer_contains":["张三"]}
+{"id":"q3","question":"校企合作与毕业生去向之间有哪些可追溯关系？","gold_keywords":["校企合作","实习","毕业生去向"],"expected_answer_contains":["合作"]}

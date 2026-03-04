@@ -1,0 +1,72 @@
+{
+  "evaluated": 3,
+  "top5_hit_rate": 1.0,
+  "citation_coverage": 0.0,
+  "answer_contains_rate": 1.0,
+  "generated_at": 1772620985,
+  "details": [
+    {
+      "index": 1,
+      "question": "学院有哪些实验室与研究平台？",
+      "top5_hit": true,
+      "citations_ok": false,
+      "contains_ok": true,
+      "answer": "学院有智能信息处理实验室、教育大数据研究中心和产学研协同创新平台。",
+      "citations": [],
+      "retrieved_chunks": [
+        "b32d39cd2ce802fa",
+        "f01bfcdf78fa3658",
+        "eb5a9638a4956d88",
+        "1a7e8b626a1976ae",
+        "8b2c1758dc59009b"
+      ],
+      "token_usage": {
+        "prompt_tokens": 597,
+        "completion_tokens": 53,
+        "total_tokens": 653
+      }
+    },
+    {
+      "index": 2,
+      "question": "张三教授属于哪个系所，研究方向是什么？",
+      "top5_hit": true,
+      "citations_ok": false,
+      "contains_ok": true,
+      "answer": "张三教授属于学院概况/导师/教授，研究方向为知识图谱与自然语言处理。",
+      "citations": [],
+      "retrieved_chunks": [
+        "a36b6c4f5a0aace8",
+        "6ee5a8ab54f5fbec",
+        "760509a5dde10d8b",
+        "840fc42a2ca2cf3d",
+        "8b2c1758dc59009b"
+      ],
+      "token_usage": {
+        "prompt_tokens": 496,
+        "completion_tokens": 59,
+        "total_tokens": 559
+      }
+    },
+    {
+      "index": 3,
+      "question": "校企合作与毕业生去向之间有哪些可追溯关系？",
+      "top5_hit": true,
+      "citations_ok": false,
+      "contains_ok": true,
+      "answer": "基于证据，校企合作与毕业生去向之间的可追溯关系包括：学院与星河科技、云帆数据等企业合作并提供实习岗位（C2），这可能直接或间接影响毕业生去向；毕业生主要去向包括互联网企业、科研院所和继续深造（C1），其中互联网企业和科研院所可能与校企合作相关，例如通过实习机会或合作项目促进就业。此外，产学研协同创新平台（C5）和实验室（如智能信息处理实验室、教育大数据研究中心）通过合作关系（如图关系证据所示）可能支持毕业生去向，例如培养技能或提供研究机会。但证据未明确说明具体因果关系或直接链接，因此关系基于间接关联推断。\n\n[提示] 当前答案缺少可验证引用，可信度较低。",
+      "citations": [],
+      "retrieved_chunks": [
+        "ae3a79bb1921f1d7",
+        "92476b72ff6df4e6",
+        "dea95c7c56add614",
+        "840fc42a2ca2cf3d",
+        "b32d39cd2ce802fa"
+      ],
+      "token_usage": {
+        "prompt_tokens": 655,
+        "completion_tokens": 187,
+        "total_tokens": 847
+      }
+    }
+  ]
+}
